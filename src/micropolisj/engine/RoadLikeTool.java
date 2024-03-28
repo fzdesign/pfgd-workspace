@@ -360,10 +360,13 @@ class RoadLikeTool extends ToolStroke
 		switch (tile)
 		{
 		case RIVER:		// wire on water
+			cost = UNDERWATER_WIRE_COST;
+			
 		case REDGE:
+			cost = UNDERWATER_WIRE_COST;
 		case CHANNEL:
 
-			cost = WIRE_COST;
+			cost = UNDERWATER_WIRE_COST;
 
 			// check east
 			{
