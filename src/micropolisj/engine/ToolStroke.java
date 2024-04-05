@@ -67,6 +67,8 @@ public class ToolStroke
 		{
 		case PARK:
 			return applyParkTool(eff);
+		case BEACH:
+			return applyBeachTool(eff);
 
 		case RESIDENTIAL:
 			return applyZone(eff, RESCLR);
@@ -230,6 +232,39 @@ public class ToolStroke
 		eff.setTile(0, 0, tile);
 
 		return true;
+	}
+	boolean applyBeachTool(ToolEffectIfc eff)
+	{
+		
+		int cost = tool.getToolCost();
+
+		if (eff.getTile(0, 0) != DIRT) {
+			// some sort of bulldozing is necessary
+			if (!city.autoBulldoze) {
+				eff.toolResult(ToolResult.UH_OH);
+				return true;
+			}
+
+			//FIXME- use a canAutoBulldoze-style function here
+			if (isRubble(eff.getTile(0, 0))) {
+				// this tile can be auto-bulldozed
+				cost++;
+				return true;
+			}
+			else {
+				// cannot be auto-bulldozed
+				eff.toolResult(ToolResult.UH_OH);
+				return false;
+							
+			}
+			
+			
+		}
+		return false;
+		
+	
+		
+		
 	}
 
 	protected void fixZone(int xpos, int ypos)
